@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Car Fashion</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--===============================================================================================-->
+    <link rel="icon" type="image/png" href="/images/icons/favicon.ico"/>
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="/vendor/bootstrap/css/bootstrap.min.css">
+    <!--======================================================================================-->
+    <link rel="stylesheet" type="text/css" href="/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+    <!--======================================================================================-->
+    <link rel="stylesheet" type="text/css" href="/fonts/Linearicons-Free-v1.0.0/icon-font.min.css">
+    <!--======================================================================================-->
+    <link rel="stylesheet" type="text/css" href="/vendor/animate/animate.css">
+    <!--======================================================================================-->
+    <link rel="stylesheet" type="text/css" href="/vendor/css-hamburgers/hamburgers.min.css">
+    <!--======================================================================================-->
+    <link rel="stylesheet" type="text/css" href="/vendor/animsition/css/animsition.min.css">
+    <!--======================================================================================-->
+    <link rel="stylesheet" type="text/css" href="/vendor/select2/select2.min.css">
+    <!--======================================================================================-->
+    <link rel="stylesheet" type="text/css" href="/vendor/daterangepicker/daterangepicker.css">
+    <!--======================================================================================-->
+    <link rel="stylesheet" type="text/css" href="/css/util.css">
+    <link rel="stylesheet" type="text/css" href="/css/main.css">
+    <!--======================================================================================-->
+    <link rel="stylesheet" type="text/css" href="/css/navigation-menu.css">
+    <link rel="stylesheet" type="text/css" href="/css/header.css">
+</head>
+<body>
+
+<!--<header id="header">-->
+<!--    <nav class="links" style="&#45;&#45;items: 5;">-->
+<!--        <a href="/company">Companies</a>-->
+<!--        <a href="/employee">Employees</a>-->
+<!--        <a href="#">Link 3</a>-->
+<!--        <a href="#">Link 4</a>-->
+<!--        <a href="#">Link 5</a>-->
+<!--        <span class="line"></span>-->
+<!--    </nav>-->
+<!--</header>-->
+
+<header class="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar">
+
+    <form action="/company">
+        <button type="submit" class="btn">
+            <i class="fa fa-home"></i>
+        </button>
+    </form>
+
+    <div class="navbar-nav-scroll">
+        <h3 class="text-white" th:text="${employee.firstName} + ' ' + ${employee.lastName}"></h3>
+    </div>
+</header>
+
+
+<div class="wrapper">
+
+
+    <div class="left-aligned">
+
+        <div class="navbar-nav-scroll">
+            <h4 class="text-black">Employee details</h4>
+        </div>
+
+        <table class="table table-striped">
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Seniority</th>
+                <th>Wage Per Hour</th>
+                <th>Company</th>
+            </tr>
+            <tr>
+                <td th:text="${employee.firstName} + ' ' + ${employee.lastName}"></td>
+                <td th:text="${employee.email}"></td>
+                <td th:text="${employee.seniority}"></td>
+                <td th:text="${employee.wagePerHour}"></td>
+                <td th:text="${employee.company.name}"></td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="right-aligned">
+        <form class="login100-form validate-form" th:action="@{/employee/change-details/} + ${employee.id}" method="post">
+					<span class="login100-form-title p-b-43">
+						Change employee details
+					</span>
+
+            <div class="wrap-input100 validate-input" data-validate="First name is required">
+                <input class="input100" type="text" name="firstName" id="firstName" th:value="${employee.firstName}">
+                <span class="focus-input100"></span>
+            </div>
+
+            <div class="wrap-input100 validate-input" data-validate="Last name is required">
+                <input class="input100" type="text" name="lastName" id="lastName" th:value="${employee.lastName}">
+                <span class="focus-input100"></span>
+            </div>
+
+            <div class="wrap-input100 validate-input"
+                 data-validate="Valid email is required: ex@abc.xyz">
+                <input class="input100" type="text" name="email" id="email" th:value="${employee.email}">
+                <span class="focus-input100"></span>
+            </div>
+
+            <div class="wrap-input100 validate-input"
+                 data-validate="Seniority is required">
+                <select name="seniority" id="seniority" class="wrap-input100 validate-input">
+                    <option value="experienced">experienced</option>
+                    <option value="non-experienced">non-experienced</option>
+                </select>
+            </div>
+
+            <div class="wrap-input100 validate-input"
+                 data-validate="Wage per hour is required">
+                <input class="input100" type="text" name="wagePerHour" id="wagePerHour" th:value="${employee.wagePerHour}">
+                <span class="focus-input100"></span>
+            </div>
+
+            <div class="wrap-input100 validate-input"
+                 data-validate="Company is required">
+                <select name="companyId" id="companyId" class="wrap-input100 validate-input">
+                    <option th:each="company : ${companies}" th:value="${company.id}" th:text="${company.name}"></option>
+                </select>
+            </div>
+
+            <div class="container-login100-form-btn">
+                <button class="login100-form-btn" type="submit">
+                    Change
+                </button>
+            </div>
+
+        </form>
+
+    </div>
+
+
+</div>
+
+<!--===============================================================================================-->
+<script src="/vendor/jquery/jquery-3.2.1.min.js"></script>
+<!--======================================================================================-->
+<script src="/vendor/animsition/js/animsition.min.js"></script>
+<!--======================================================================================-->
+<script src="/vendor/bootstrap/js/popper.js"></script>
+<script src="/vendor/bootstrap/js/bootstrap.min.js"></script>
+<!--======================================================================================-->
+<script src="/vendor/select2/select2.min.js"></script>
+<!--======================================================================================-->
+<script src="/vendor/daterangepicker/moment.min.js"></script>
+<script src="/vendor/daterangepicker/daterangepicker.js"></script>
+<!--======================================================================================-->
+<script src="/vendor/countdowntime/countdowntime.js"></script>
+<!--======================================================================================-->
+<script src="/js/main.js"></script>
+
+</body>
+</html>
